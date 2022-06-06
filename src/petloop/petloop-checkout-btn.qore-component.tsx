@@ -147,31 +147,15 @@ const Checkout = registerComponent("Petloop Checkout Button", {
               {
                 operation: 'Insert',
                 instruction: {
-                  table: 'Transactions',
-                  name: "insertTransactions",
-                  data: {
-                    date: date.toISOString(),
-                    user_transactions: userId,
-                    status: 'Waiting Payment',
-                    amount: total_price_selected,
-                    service_place_transaction: storeId,
-                    date_string: `${day}/${month}/${year}`,
-                    service_place_string: storeId
-                  },
-                },
-              },
-              {
-                operation: 'Insert',
-                instruction: {
                   table: 'carts',
                   name: "insertCart",
                   data: {
                     user_cart: userId,
-                    transaction_cart: "{{insertTransactions[0].id}}",
                     status: 'Checkout',
                     total_price: total_price_selected,
                     grand_total: total_price_selected,
                     service_place_cart: storeId,
+                    code: `${Math.random().toString().slice(2, 6)}/${year}${month}${day}}/${userId}`,
                   },
                 },
               },

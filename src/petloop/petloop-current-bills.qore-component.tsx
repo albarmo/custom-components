@@ -331,6 +331,73 @@ const BillComponent = registerComponent('Bills', {
             ],
           },
         })
+
+        //get all items product from bill
+        const responseItems = await client.project.axios({
+          method: 'post',
+          headers,
+          url: `${url}/v1/execute`,
+          data: {
+            operations: [
+              {
+                operation: 'Select',
+                instruction: {
+                  table: 'bill_items',
+                  name: "data",
+                  condition: {
+                    bill: id,
+                    item_type: 'Product'
+                  },
+                },
+              }
+            ]
+          }
+        })
+
+        const items = responseItems.data.results.data
+
+        if(items.length > 0){
+          //update product stock and insert stock log
+          await client.project.axios({
+            method: 'post',
+            headers,
+            url: `${url}/v1/execute`,
+            data: {
+              operations: [
+                ...items.map((item) => ({
+                  operation: 'Update',
+                  instruction: {
+                    table: 'Products',
+                    name: "updateProduct",
+                    condition: {
+                      id: item.product_bills
+                    },
+                    set: {
+                      total_stock_out: item.product_total_stock_out + item.quantity,
+                      total_stock_sales: item.product_total_stock_sales + item.quantity
+                    },
+                  }
+                })),
+                ...items.map((item) => ({
+                  operation: 'Insert',
+                  instruction: {
+                    table: 'stock_log',
+                    name: "insertStockLog",
+                    data: {
+                      stock_log_product: item.product_bills,
+                      qty: item.quantity,
+                      qty_before: item.product_stock + item.quantity,
+                      qty_after: item.product_stock,
+                      type: 'Keluar',
+                      note: `Penjualan atas transaksi ${bill.bill_id}`,
+                    },
+                  },
+                }))
+              ]
+            }
+          })
+        }
+
         action.handleClick()
       } catch (error) {
         throw new Error(error)

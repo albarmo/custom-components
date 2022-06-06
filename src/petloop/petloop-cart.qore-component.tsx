@@ -40,24 +40,6 @@ function Item(props) {
 
   const client = props.hooks.useClient()
 
-  // const actionIncrement = props.hooks.useActionTrigger(
-  //   props.properties.actionIncrement,
-  //   props.data.page.row,
-  //   props.pageSource,
-  // )
-
-  // const actionDecrement = props.hooks.useActionTrigger(
-  //   props.properties.actionDecrement,
-  //   props.data.page.row,
-  //   props.pageSource,
-  // )
-
-  // const actionRemove = props.hooks.useActionTrigger(
-  //   props.properties.actionRemove,
-  //   props.data.page.row,
-  //   props.pageSource,
-  // )
-
   const increment = async () => {
     setLoading(true)
     try {
@@ -274,10 +256,8 @@ function Item(props) {
                   },
                 },
                 set: {
-                  total_price:
-                    Number(cart.total_price) - Number(item.price) * qty,
-                  grand_total:
-                    Number(cart.total_price) - Number(item.price) * qty,
+                  total_price: Number(cart.total_price) - Number(item.price) * qty,
+                  grand_total: Number(cart.total_price) - Number(item.price) * qty,
                 },
               },
             },
@@ -356,20 +336,9 @@ function Item(props) {
           </Box>
 
           <Box flex={1} flexDirection="row" noOfLines={4} p={2}>
-            {/* <Text fontSize="sm" noOfLines={2} >
-              {title}
-            </Text> */}
-
-            {/* <Checkbox
-              borderColor="gray.200"
-              isChecked={isSelected}
-              onChange={(e) => selectProduct(e.target.checked)}
-              pl={2}
-            > */}
             <Text fontSize="sm" noOfLines={2}>
               {title}
             </Text>
-            {/* </Checkbox> */}
 
             <Flex justifyContent={'space-between'}>
               <Text
@@ -438,34 +407,6 @@ function Item(props) {
                   +
                 </Button>
               </HStack>
-              {/* <HStack pb={2}>
-                <Button
-                  size={'sm'}
-                  backgroundColor={'#F56565'}
-                  color={'#FFF'}
-                  onClick={actionRemove.handleClick}
-                >x</Button>
-                <Button
-                  size={'sm'}
-                  colorScheme='blue'
-                  onClick={actionDecrement.handleClick}
-                  disabled={item.qty == 1}
-                >-</Button>
-                <Input
-                  size={'sm'}
-                  value={item.qty}
-                  textAlign={'center'}
-                  width={'50px'}
-                  borderColor={'#f1f1f1'}
-                  readOnly
-                />
-                <Button
-                  size={'sm'}
-                  colorScheme='blue'
-                  onClick={actionIncrement.handleClick}
-                  disabled={item.quantity == item.qty}
-                >+</Button>
-              </HStack> */}
             </Flex>
           </Box>
         </Flex>
@@ -504,9 +445,6 @@ export default registerComponent('Petloop Cart', {
     price: 'Price',
     stock: '0',
     storeName: 'Store Name',
-    // actionIncrement: { type: 'none' },
-    // actionDecrement: { type: 'none' },
-    // actionRemove: { type: 'none' },
   },
   propDefinition: {
     header: {
@@ -524,24 +462,6 @@ export default registerComponent('Petloop Cart', {
     price: { group: 'Design', type: 'string', options: { format: 'text' } },
     stock: { group: 'Design', type: 'string', options: { format: 'text' } },
     storeName: { group: 'Design', type: 'string', options: { format: 'text' } },
-    // actionIncrement: {
-    //   group: 'Action',
-    //   type: 'action',
-    //   label: "Item Action Increment",
-    //   options: { type: 'none' }
-    // },
-    // actionDecrement: {
-    //   group: 'Action',
-    //   type: 'action',
-    //   label: "Item Action Decrement",
-    //   options: { type: 'none' }
-    // },
-    // actionRemove: {
-    //   group: 'Action',
-    //   type: 'action',
-    //   label: "Item Action Remove",
-    //   options: { type: 'none' }
-    // },
   },
   Component: (props) => {
     const { rows, loading, error, revalidate } = props.data.component

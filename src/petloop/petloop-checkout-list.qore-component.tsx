@@ -13,7 +13,8 @@ import {
   Center,
   Divider,
   List,
-  ListItem
+  ListItem,
+  Image
 } from '@chakra-ui/react'
 
 const url = 'https://staging-qore-data-teacher-593643.qore.dev'
@@ -28,6 +29,7 @@ const Item = (props) => {
   const itemId = props.hooks.useTemplate(item.id || props.source.itemId)
 
   const title = props.hooks.useTemplate(props.properties.title);
+  const imageSource = props.hooks.useTemplate(props.properties.imageSource);
   const price = props.hooks.useTemplate(props.properties.price);
   const qty = props.hooks.useTemplate(props.properties.qty);
   const subtotal = props.hooks.useTemplate(props.properties.subtotal);
@@ -43,20 +45,27 @@ const Item = (props) => {
       borderColor={{ base: 'gray.200', md: 'none' }}
     >
       <Flex w="full" justifyContent="space-between">
-        <HStack>
-          <Text fontSize="md" noOfLines={1} fontWeight="semibold">
-            {qty} x
-          </Text>
+        <HStack width={'15%'}>
+          <Box pr={2}>
+            <Image
+              boxSize='30px'
+              objectFit='cover'
+              src={imageSource}
+              alt={title}
+            />
+          </Box>
+        </HStack>
+        <HStack width={'65%'}>
           <Text fontSize="sm" noOfLines={2} fontWeight="semibold">
             {title}
           </Text>
         </HStack>
         <Text fontSize="md" fontWeight="semibold" noOfLines={1}>
-          {subtotal}
+          @{subtotal}
         </Text>
       </Flex>
-      <Text fontSize="xs">
-        @{price}
+      <Text fontSize="sm">
+        {qty} x {price}
       </Text>
     </ListItem>
   )
@@ -88,6 +97,7 @@ export default registerComponent("Petloop Checkout List", {
   defaultProps: {
     header: "Tagihan Saat Ini",
     title: "Title",
+    imageSource: "https://via.placeholder.com/150",
     price: "Price",
     qty: "0",
     subtotal: "0",
@@ -103,6 +113,7 @@ export default registerComponent("Petloop Checkout List", {
       },
     },
     title: { group: "Design", type: "string", options: { format: "text" } },
+    imageSource: { group: "Thumbnail", type: "string", options: { format: "text" } },
     price: { group: "Design", type: "string", options: { format: "text" } },
     qty: { group: "Design", type: "string", options: { format: "text" } },
     subtotal: { group: "Design", type: "string", options: { format: "text" } },
@@ -165,7 +176,7 @@ export default registerComponent("Petloop Checkout List", {
 
         <Box padding={'5px 5px'}>
           <Divider mt="10px" mb="10px" color="gray.300" />
-          <Flex mt="10px" w="full" justifyContent="space-between">
+          {/* <Flex mt="10px" w="full" justifyContent="space-between">
             <Text fontSize="md" noOfLines={1}>
               Subtotal
             </Text>
@@ -185,7 +196,7 @@ export default registerComponent("Petloop Checkout List", {
             >
               ({discountTransaction})
             </Text>
-          </Flex>
+          </Flex> */}
           <Flex mt="10px" w="full" justifyContent="space-between">
             <Text fontSize="md" noOfLines={1}>
               TOTAL
