@@ -173,7 +173,7 @@ const LoaderItem: React.FC = () => (
   </Grid>
 );
 
-export default registerComponent("Petloop Stock Opname List & Save", {
+export default registerComponent("Petloop Stock Opname Medic List & Save", {
   type: "list",
   icon: "IconX",
   group: "list",
@@ -252,7 +252,7 @@ export default registerComponent("Petloop Stock Opname List & Save", {
                   name: "dataProduct",
                   condition: {
                     service_place_products: servicePlaceId,
-                    category_is_product_medic: false
+                    category_is_product_medic: true
                   },
                 },
               },
@@ -318,7 +318,7 @@ export default registerComponent("Petloop Stock Opname List & Save", {
                   name: "dataProduct",
                   condition: {
                     service_place_products: servicePlaceId,
-                    category_is_product_medic: false
+                    category_is_product_medic: true
                   },
                 },
               },
@@ -351,7 +351,7 @@ export default registerComponent("Petloop Stock Opname List & Save", {
                       note,
                       service_place_stock_opname: servicePlaceId,
                       user_stock_opname: userId,
-                      is_product_medical: false
+                      is_product_medical: true
                     },
                   },
                 },

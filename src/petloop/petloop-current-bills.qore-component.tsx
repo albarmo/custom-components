@@ -332,7 +332,7 @@ const BillComponent = registerComponent('Bills', {
           },
         })
 
-        // //get all items product from bill
+        //get all items product from bill
         // const responseItems = await client.project.axios({
         //   method: 'post',
         //   headers,

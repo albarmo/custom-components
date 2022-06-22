@@ -15,7 +15,7 @@ const headers = {
   'x-qore-engine-admin-secret': 'UM5MlKofJjxhC0KQejD8WZi2cmbpAN5A',
 }
 
-const Checkout = registerComponent("Petloop Checkout Button", {
+export default registerComponent("Petloop Checkout Button", {
   type: "none",
   icon: "IconX",
   group: "button",
@@ -155,7 +155,7 @@ const Checkout = registerComponent("Petloop Checkout Button", {
                     total_price: total_price_selected,
                     grand_total: total_price_selected,
                     service_place_cart: storeId,
-                    code: `${Math.random().toString().slice(2, 6)}/${year}${month}${day}}/${userId}`,
+                    code: `${Math.random().toString().slice(2, 6)}/${year}${month}${day}/${userId}`,
                   },
                 },
               },
@@ -229,5 +229,3 @@ const Checkout = registerComponent("Petloop Checkout Button", {
     )
   }
 })
-
-export default Checkout
